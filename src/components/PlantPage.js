@@ -9,7 +9,7 @@ function PlantPage() {
 
   // Fetch plants from the backend API on component mount
   useEffect(() => {
-    fetch("http://localhost:6001/plants")
+    fetch("https://react-hooks-cc-plantshop-1wcr.onrender.com/plants")
       .then((response) => {
         if (!response.ok) {
           // More detailed error if the response isn't okay

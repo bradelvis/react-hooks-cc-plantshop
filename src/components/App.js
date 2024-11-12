@@ -10,7 +10,7 @@ function App() {
 
   // Fetch plants from API when the component mounts
   useEffect(() => {
-    fetch('http://localhost:6001/plants')
+    fetch('https://react-hooks-cc-plantshop-1wcr.onrender.com/plants')
       .then((response) => response.json())
       .then((data) => setPlants(data))
       .catch((error) => {

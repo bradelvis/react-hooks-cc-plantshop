@@ -44,6 +44,13 @@
       "<rootDir>/jest.setup.js"
     ],
     "testEnvironment": "jsdom",
-    "testPathIgnorePatterns": ["/test_suites"]
-  }
+    "testPathIgnorePatterns": [
+      "/test_suites"
+    ]
+  },
+  "description": "## Demo",
+  "main": "babel.config.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }

@@ -17,7 +17,7 @@ function NewPlantForm({ addPlant }) {
     };
 
     // Send the new plant data to the backend (POST request)
-    fetch('http://localhost:6001/plants', {
+    fetch('https://react-hooks-cc-plantshop-1wcr.onrender.com/plants', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
