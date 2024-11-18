@@ -15,7 +15,7 @@ function PlantCard({ plant }) {
 
     try {
       // Send a PATCH request to update the sold-out status on the server
-      const response = await fetch(`http://localhost:5000/plants/${plant.id}`, {
+      const response = await fetch(`https://react-hooks-cc-plantshop-1-9cir.onrender.com/plants/${plant.id}`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",

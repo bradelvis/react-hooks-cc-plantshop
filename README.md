@@ -8,7 +8,7 @@ Clone the Repository:
 
 bash
 Copy code
-git clone https://github.com/Skian9299/plantsy.git
+git clone git@github.com:bradelvis/react-hooks-cc-plantshop.git
 Install Dependencies:
 
 In the project root, install dependencies for the frontend:
