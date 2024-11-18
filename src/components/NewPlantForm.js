@@ -1,72 +1,53 @@
-import React, { useState } from 'react';
+// NewPlantForm.js
+import React, { useState } from "react";
 
 function NewPlantForm({ addPlant }) {
-  const [name, setName] = useState('');
-  const [image, setImage] = useState('');
-  const [price, setPrice] = useState('');
+  const [name, setName] = useState("");
+  const [image, setImage] = useState("");
+  const [price, setPrice] = useState("");
 
-  // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Create the new plant object
     const newPlant = {
       name,
       image,
       price: parseFloat(price),
     };
 
-    // Send the new plant data to the backend (POST request)
-    fetch('https://react-hooks-cc-plantshop-1wcr.onrender.com/plants', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(newPlant),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        // After the plant is added, update the parent component's state
-        addPlant(data);
-        
-        // Reset the form inputs
-        setName('');
-        setImage('');
-        setPrice('');
-      })
-      .catch((error) => {
-        console.error('Error adding plant:', error);
-      });
+    addPlant(newPlant); // Call addPlant prop passed from parent
+
+    // Reset form fields
+    setName("");
+    setImage("");
+    setPrice("");
   };
 
   return (
     <div className="new-plant-form">
-      <h2>Add New Plant</h2>
+      <h2>New Plant</h2>
       <form onSubmit={handleSubmit}>
         <input
           type="text"
           name="name"
+          placeholder="Plant name"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          placeholder="Plant name"
-          required
         />
         <input
           type="text"
           name="image"
+          placeholder="Image URL"
           value={image}
           onChange={(e) => setImage(e.target.value)}
-          placeholder="Image URL"
-          required
         />
         <input
           type="number"
           name="price"
-          value={price}
-          onChange={(e) => setPrice(e.target.value)}
           step="0.01"
           placeholder="Price"
-          required
+          value={price}
+          onChange={(e) => setPrice(e.target.value)}
         />
         <button type="submit">Add Plant</button>
       </form>

@@ -7,57 +7,36 @@ function PlantPage() {
   const [plants, setPlants] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
 
-  // Fetch plants from the backend API on component mount
+  // Fetch plant data when the component mounts
   useEffect(() => {
-    fetch("https://react-hooks-cc-plantshop-1wcr.onrender.com/plants")
-      .then((response) => {
-        if (!response.ok) {
-          // More detailed error if the response isn't okay
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        return response.json();
-      })
-      .then((data) => setPlants(data))
-      .catch((error) => {
-        console.error("Error loading plants:", error);
-        // Optionally show a user-friendly error message in the UI
-        alert("Failed to load plants. Please try again later.");
-      });
+    fetch("http://localhost:5000/plants")
+      .then((response) => response.json())
+      .then((data) => setPlants(data));
   }, []);
 
-  // Add a new plant
-  const addPlant = (newPlant) => {
+  const handleAddPlant = (newPlant) => {
+    // Add the new plant to the state
     setPlants((prevPlants) => [...prevPlants, newPlant]);
+
+    // Send a POST request to the server to add the new plant
+    fetch("http://localhost:5000/plants", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newPlant),
+    });
   };
 
-  // Mark a plant as sold out
-  const markAsSoldOut = (id) => {
-    setPlants((prevPlants) =>
-      prevPlants.map((plant) =>
-        plant.id === id ? { ...plant, soldOut: true } : plant
-      )
-    );
-  };
-
-  // Delete a plant
-  const deletePlant = (id) => {
-    setPlants((prevPlants) => prevPlants.filter((plant) => plant.id !== id));
-  };
-
-  // Filter plants by search query
   const filteredPlants = plants.filter((plant) =>
     plant.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   return (
     <main>
-      <NewPlantForm addPlant={addPlant} />
+      <NewPlantForm onAddPlant={handleAddPlant} />
       <Search setSearchQuery={setSearchQuery} />
-      <PlantList
-        plants={filteredPlants}
-        markAsSoldOut={markAsSoldOut}
-        deletePlant={deletePlant}
-      />
+      <PlantList plants={filteredPlants} />
     </main>
   );
 }
